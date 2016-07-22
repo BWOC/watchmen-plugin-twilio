@@ -80,14 +80,14 @@ function handleEvent(eventName) {
 
     var body = templates.body[eventName](context);
 
-	var numbers = service.alertPhoneNumbers.split(',');
+	var numbers = service.callPhoneNumbers.split(',');
 	for (var i in numbers) {
 		var number = numbers[i];
-		console.log('Sending alert notification to phone number: ' + number);
-		client.sendMessage({
+		console.log('Sending alert call to phone number: ' + number);
+		client.makeCall({
 			to:number,
 			from: fromPhoneNumber,
-			body: body
+			url: 'http://twimlets.com/message?Message[0]=' + body
 		}, function(err, responseData) {
 			if (!err) {
 				console.log(responseData.from);
